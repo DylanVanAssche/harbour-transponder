@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+X-Nemo-Application-Type=silica-qt5
+Icon=harbour-transponder
+Exec=sailfish-qml harbour-transponder
+Name=Transponder

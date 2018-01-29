@@ -30,12 +30,25 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import io.thp.pyotherside 1.4
 import "pages"
 
 ApplicationWindow
 {
+    signal contactsChanged(var contactsModel)
+    signal messagesChanged(var messagesModel)
+
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
+
+    Python {
+        id: api
+        onReceived: console.warn("Unhandled Python signal: " + data)
+        onError: console.error("Python error: " + traceback)
+        Component.onCompleted: {
+            //addImportPath(Qt.resolvedUrl('.')); // Import all distributes modules
+        }
+    }
 }
 

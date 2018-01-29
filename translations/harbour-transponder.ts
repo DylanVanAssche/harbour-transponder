@@ -2,24 +2,28 @@
 <!DOCTYPE TS>
 <TS version="2.1">
 <context>
-    <name>CoverPage</name>
-    <message>
-        <source>My Cover</source>
+    <name></name>
+    <message id="transponder-oops">
+        <source>Oops!</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="transponder-removing">
+        <source>Removing</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="transponder-remove">
+        <source>Remove</source>
+        <translation type="unfinished"></translation>
+    </message>
+    <message id="transponder-no-matches">
+        <source>No contacts!</source>
         <translation type="unfinished"></translation>
     </message>
 </context>
 <context>
-    <name>FirstPage</name>
+    <name>CoverPage</name>
     <message>
-        <source>Show Page 2</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>UI Template</source>
-        <translation type="unfinished"></translation>
-    </message>
-    <message>
-        <source>Hello Sailors</source>
+        <source>My Cover</source>
         <translation type="unfinished"></translation>
     </message>
 </context>

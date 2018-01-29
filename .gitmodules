@@ -1,0 +1,3 @@
+[submodule "transponder/requests"]
+	path = transponder/requests
+	url = https://github.com/requests/requests/

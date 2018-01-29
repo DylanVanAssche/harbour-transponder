@@ -14,10 +14,16 @@ TARGET = harbour-transponder
 
 CONFIG += sailfishapp_qml
 
+# DBus support
+QT += dbus
+
+# Disable debug and warning messages while releasing for security reasons
+CONFIG(release, debug|release):DEFINES += QT_NO_DEBUG_OUTPUT \
+QT_NO_WARNING_OUTPUT
+
 DISTFILES += qml/harbour-transponder.qml \
     qml/cover/CoverPage.qml \
     qml/pages/FirstPage.qml \
-    qml/pages/SecondPage.qml \
     rpm/harbour-transponder.changes.in \
     rpm/harbour-transponder.changes.run.in \
     rpm/harbour-transponder.spec \
@@ -27,12 +33,16 @@ DISTFILES += qml/harbour-transponder.qml \
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
+# APP_VERSION retrieved from .spec file
+DEFINES += APP_VERSION=\"\\\"$${VERSION}\\\"\"
+
 # to disable building translations every time, comment out the
 # following CONFIG line
-CONFIG += sailfishapp_i18n
+CONFIG += sailfishapp_i18n \
+    sailfishapp_i18n_idbased
 
 # German translation is enabled as an example. If you aren't
 # planning to localize your app, remember to comment out the
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
-TRANSLATIONS += translations/harbour-transponder-de.ts
+TRANSLATIONS += translations/harbour-transponder.ts

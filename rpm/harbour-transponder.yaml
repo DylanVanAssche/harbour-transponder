@@ -34,6 +34,7 @@ PkgConfigBR:
 Requires:
   - sailfishsilica-qt5 >= 0.10.9
   - libsailfishapp-launcher
+  - nemo-qml-plugin-notifications-qt5
 
 # All installed files
 Files:

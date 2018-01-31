@@ -20,6 +20,8 @@ Transponder is a Sailfish OS application that provide access to different
 messaging providers using Python plugins.
 """
 
+import logging
+
 class Message:
     def __init__(self, message, timestamp, read, received, author):
         """Initialize an Message instance.
@@ -38,3 +40,5 @@ class Message:
         self.read = read
         self.received = received
         self.author = author
+        self._logger = logging.getLogger(__name__)
+        self._logger.debug("Message instance created")

@@ -20,9 +20,20 @@ Transponder is a Sailfish OS application that provide access to different
 messaging providers using Python plugins.
 """
 
+import transponder.util as util
+import logging
+
+PROVIDERS_FILE = "providers.json"
+
+__all__ = ("Application")
+
 class Application:
     """ Application contains all the application APIs of Transponder. """
     
-    def __init(self):
+    def __init__(self):
         """Initialize an Application instance."""
+        self._logger = logging.getLogger(__name__)
+        providers = util.read_json(PROVIDERS_FILE)
         
+        
+        self._logger.debug("Application instance created")

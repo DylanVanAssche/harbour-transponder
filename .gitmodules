@@ -1,3 +1,15 @@
 [submodule "transponder/requests"]
 	path = transponder/requests
 	url = https://github.com/requests/requests/
+[submodule "qml/transponder/urllib3"]
+	path = qml/transponder/urllib3
+	url = https://github.com/shazow/urllib3.git
+[submodule "qml/transponder/chardet"]
+	path = qml/transponder/chardet
+	url = https://github.com/chardet/chardet.git
+[submodule "qml/transponder/idna"]
+	path = qml/transponder/idna
+	url = https://github.com/kjd/idna.git
+[submodule "qml/transponder/python-certifi"]
+	path = qml/transponder/python-certifi
+	url = https://github.com/certifi/python-certifi.git

@@ -29,7 +29,10 @@ DISTFILES += qml/harbour-transponder.qml \
     rpm/harbour-transponder.spec \
     rpm/harbour-transponder.yaml \
     translations/*.ts \
-    harbour-transponder.desktop
+    transponder/*.py \
+    transponder/data/*.json \
+    harbour-transponder.desktop \
+    qml/components/API.qml
 
 SAILFISHAPP_ICONS = 86x86 108x108 128x128
 
@@ -46,3 +49,6 @@ CONFIG += sailfishapp_i18n \
 # following TRANSLATIONS line. And also do not forget to
 # modify the localized app name in the the .desktop file.
 TRANSLATIONS += translations/harbour-transponder.ts
+
+RESOURCES += \
+    resources/resources.qrc

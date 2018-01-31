@@ -22,6 +22,11 @@ messaging providers using Python plugins.
 
 __version__ = "0.1-1"
 
+import logging
+_logger = logging.getLogger(__name__)
+_logger.setLevel(logging.DEBUG)
+_logger.info("Logging setup done")
+
 try:
     import pyotherside
 except ImportError:
@@ -33,10 +38,10 @@ except ImportError:
         def send(*args): pass
     sys.modules["pyotherside"] = pyotherside()
 
-from transponder.application import *
+from transponder.application import Application
 
 def main():
     """Initialize application."""
     global app
     app = Application()
-    return true
+    return True

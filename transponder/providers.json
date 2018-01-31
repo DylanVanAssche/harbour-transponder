@@ -1,0 +1,8 @@
+{
+  "providers": [
+    "Matrix",
+    "Telegram",
+    "IRC",
+    "Hangouts"
+  ]
+}

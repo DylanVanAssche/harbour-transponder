@@ -20,11 +20,23 @@ import Sailfish.Silica 1.0
 import "../components"
 
 Page {
-    id: page
 
     SilicaListView {
         id: matchesListView
         anchors.fill: parent
+
+        PullDownMenu {
+            MenuItem {
+                text: "Settings"
+                onClicked: pageStack.push(Qt.resolvedUrl("SettingsPage.qml"))
+            }
+
+            MenuItem {
+                text: "Manage accounts"
+                onClicked: pageStack.push(Qt.resolvedUrl("ManageAccountsPage.qml"))
+            }
+        }
+
         delegate: ContactsDelegate {
             id: contact
             width: ListView.view.width
@@ -32,7 +44,7 @@ Page {
             onClicked: pageStack.push(
                            Qt.resolvedUrl("MessagingPage.qml"),
                            {
-                            // Arguments here
+                               // Arguments here
                            }
                            )
             menu: ContextMenu {

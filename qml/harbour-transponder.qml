@@ -30,38 +30,17 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
-import io.thp.pyotherside 1.3
 import "pages"
+import "components"
 
 ApplicationWindow
 {
-    signal contactsChanged(var contactsModel)
-    signal messagesChanged(var messagesModel)
-    signal pythonReady()
-
     initialPage: Component { FirstPage { } }
     cover: Qt.resolvedUrl("cover/CoverPage.qml")
     allowedOrientations: defaultAllowedOrientations
 
-    Python {
+    API {
         id: api
-        onReceived: console.warn("Unhandled Python signal: " + data)
-        onError: console.error("Python error: " + traceback)
-        Component.onCompleted: {
-            addImportPath(Qt.resolvedUrl("..")); // Import all distributes modules
-            importModule("transponder", function() {
-                console.debug("Importing main module OK")
-            })
-            call("main.init", function(success) {
-                if(success) {
-                    console.debug("Python is ready")
-                    pythonReady()
-                }
-                else {
-                    console.error("Cannot start Python interpreter")
-                }
-            })
-        }
     }
 }
 

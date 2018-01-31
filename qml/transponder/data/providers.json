@@ -1,0 +1,22 @@
+{
+    "providers": [
+        {
+            "module": "matrix_client",
+            "name": "Matrix.org",
+            "version": "0.0.1",
+            "url": "https://github.com/DylanVanAssche/transponder-matrix/releases/download/V0.0.1/matrix_client.zip"
+        },
+        {
+            "module": "telethon",
+            "name": "Telegram",
+            "version": "0.0.15",
+            "url": "https://github.com/DylanVanAssche/transponder-telegram/releases/download/V0.0.1/telethon.zip"
+        },
+        {
+            "module": "hangups",
+            "name": "Google Hangouts",
+            "version": "0.0.15",
+            "url": "https://github.com/DylanVanAssche/transponder-hangouts/releases/download/V0.0.1/hangups.zip"
+        }
+    ]
+}

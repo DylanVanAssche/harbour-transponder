@@ -13,3 +13,6 @@
 [submodule "qml/transponder/python-certifi"]
 	path = qml/transponder/python-certifi
 	url = https://github.com/certifi/python-certifi.git
+[submodule "requests"]
+	path = requests
+	url = https://github.com/requests/requests.git

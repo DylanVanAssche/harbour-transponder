@@ -41,6 +41,7 @@ class SDK:
         self.installed_version = None
         self.module_name = module_name
         self.module = None
+        self.client = None
         self.path = "{0}/{1}.zip".format(paths.TRANSPONDER_SDK_DIR, self.module_name) # All SDKs are ZIP files
         self.installed = os.path.exists(self.path)
         self.updatable = False
@@ -68,14 +69,19 @@ class SDK:
         if(self.installed):
             try:
                 sys.path.append(self.path) # Add module location to PYTHONPATH
+                self.app.send_signal("Module path:", self.path)
                 if(self.module == None):
                     self.module = importlib.import_module(self.module_name) # Try to import it
+                    self.app.send_signal("Imported module:", dir(self.module))
                 else:
                     importlib.reload(self.module) # When already imported, reload due update
                 self.installed_version = self.module.__version__
+                self.client = self.module.client # Connect module handler to SDK client handler
                 self._logger.debug("{0} imported succesfully with version {1}".format(self.module_name, self.installed_version))
             except ImportError:
                 self._logger.error("Import error for module: {0}".format(self.module_name))
+            except AttributeError:
+                self._logger.error("Imported module: {0} hasn't the required client attribute".format(self.module_name))
         else:
             self.installed_version = ""
         return self.installed_version

@@ -6,6 +6,8 @@ methods to connect the UI with your provider his SDK.
 Your provider may not support all of these methods, if that's the case these
 methods need to return an empty list, string, ... depending on the method.
 
+To make Transponder more modular every provider needs to be implemented as a class called `Client`. The `SDK` class in Transponder will look for this when it's tries to import the provider module.
+
 ## get_messages
 This method should return a list of `Message` objects containing all the
 messages of the supplied `Contact` object.
@@ -33,3 +35,6 @@ events are supported:
 - New message
 - Authentication error
 - New invite
+
+
+:exclamation: This method will not be called directly but needs to receive events from the provider. As soon as an event is received, the event needs to be send to QML using `pyotherside.send(signal, data)`

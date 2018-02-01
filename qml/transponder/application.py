@@ -47,9 +47,12 @@ class Application:
         self._logger = logging.getLogger(__name__)
         self.providers = []
         supported_providers = util.read_json(PROVIDERS_FILE)["providers"]
-        for p in supported_providers:
-            sdk = SDK(self, p["name"], p["url"], p["version"], p["module"])
-            self.providers.append(Provider(self, p["name"], sdk))
+        if supported_providers: # valid data
+            for p in supported_providers:
+                sdk = SDK(self, p["name"], p["url"], p["version"], p["module"], p["hash256"])
+                self.providers.append(Provider(self, p["name"], sdk))
+        else:
+            self._logger.error("Invalid data from provider.json")
         self._logger.debug("Application instance created")
         
     def get_available_providers(self):
@@ -62,6 +65,7 @@ class Application:
             "module": p.sdk.module_name, 
             "installed": p.sdk.installed, 
             "updatable": p.sdk.updatable, 
+            "verified": p.sdk.verified,
             "version": p.sdk.installed_version
             }
             providersList.append(data) 

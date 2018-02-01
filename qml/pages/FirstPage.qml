@@ -35,6 +35,11 @@ Page {
                 text: "Manage accounts"
                 onClicked: pageStack.push(Qt.resolvedUrl("ManageAccountsPage.qml"))
             }
+
+            MenuItem {
+                text: "Add account"
+                onClicked: pageStack.push(Qt.resolvedUrl("AddAccountPage.qml"))
+            }
         }
 
         delegate: ContactsDelegate {

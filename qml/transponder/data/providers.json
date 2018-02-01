@@ -2,18 +2,21 @@
     "providers": [
         {
             "module": "matrix",
+            "hash256": "35bb90a99659e73b103adc4155fab7a7f47c7cb31b7941905c61d377ec8b6729",
             "name": "Matrix.org",
             "version": "0.0.2",
             "url": "https://github.com/DylanVanAssche/transponder-matrix/releases/download/V0.0.2/matrix.zip"
         },
         {
             "module": "telegram",
+            "hash256": "",
             "name": "Telegram",
             "version": "0.0.15",
             "url": "https://github.com/DylanVanAssche/transponder-telegram/releases/download/V0.0.1/telethon.zip"
         },
         {
             "module": "hangouts",
+            "hash256": "",
             "name": "Google Hangouts",
             "version": "0.0.15",
             "url": "https://github.com/DylanVanAssche/transponder-hangouts/releases/download/V0.0.1/hangups.zip"

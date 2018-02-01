@@ -17,6 +17,7 @@
 
 import QtQuick 2.0
 import Sailfish.Silica 1.0
+import Nemo.Notifications 1.0
 import "../components"
 
 Page {
@@ -34,6 +35,38 @@ Page {
             for(var i=0; i < api.providers.length; i++) {
                 providersListModel.append(api.providers[i])
             }
+        }
+
+        onProviderDownloadStarted: {
+            downloadProgress.value = 0.0
+            downloadProgress.indeterminate = true
+            downloadProgress.opacity = 1.0
+        }
+        onProviderDownloadProgress: {
+            downloadProgress.indeterminate = false
+            downloadProgress.value = Math.round(progress)
+        }
+        onProviderDownloadFinished: downloadProgress.opacity = 0.0
+        onProviderCorrupted: errorNotify.prepare("Provider corrupted", "Can't use your provider module, try to update the module")
+        onProviderDownloadFailed: errorNotify.prepare("Downloading failed", "Can't download your provider module, please check your network connection")
+        onProviderRemoveFailed: errorNotify.prepare("Removing failed", "Can't remove your provider module, please try again later")
+        onProviderInstallFailed: errorNotify.prepare("Installation failed", "Can't install your provider module, please try again later")
+    }
+
+    Notification {
+        id: errorNotify
+        appIcon: "image://theme/icon-lock-warning"
+        urgency: Notification.Critical
+
+        function prepare(summary, body) {
+            console.debug("Preparing error notification")
+            errorNotify.close() // Close any previous notifications
+            errorNotify.previewSummary = summary
+            errorNotify.previewBody = body
+            errorNotify.summary = summary
+            errorNotify.body = body
+            errorNotify.publish()
+            console.debug("Error notification published")
         }
     }
 
@@ -54,15 +87,24 @@ Page {
                     anchors {
                         verticalCenter: parent.verticalCenter
                         left: parent.left
-                        leftMargin: Theme.paddingLarge
+                        leftMargin: Theme.paddingLarge*3
                     }
                     running: api.busy
                 }
             }
 
-
-
             SectionHeader { text: "Providers" }
+
+            ProgressBar {
+                id: downloadProgress
+                width: parent.width
+                maximumValue: 100
+                valueText: value > 0.0? value + " %": ""
+                label: "Downloading..."
+                opacity: 0.0
+                visible: opacity > 0.0
+                Behavior on opacity { FadeAnimator {} }
+            }
 
             SilicaListView {
                 width: parent.width
@@ -70,6 +112,8 @@ Page {
                 model: providersListModel
                 delegate: ProviderDelegate {
                     width: ListView.view.width
+                    enabled: !downloadProgress.visible
+                    opacity: enabled? 1.0: 0.7
                     menu: ContextMenu {
                         MenuItem {
                             text: "Install"

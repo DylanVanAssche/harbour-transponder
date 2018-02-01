@@ -1,3 +1,20 @@
+/*
+*   This file is part of Transponder.
+*
+*   Transponder is free software: you can redistribute it and/or modify
+*   it under the terms of the GNU General Public License as published by
+*   the Free Software Foundation, either version 3 of the License, or
+*   (at your option) any later version.
+*
+*   Transponder is distributed in the hope that it will be useful,
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+*   GNU General Public License for more details.
+*
+*   You should have received a copy of the GNU General Public License
+*   along with Transponder.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 import QtQuick 2.0
 import Sailfish.Silica 1.0
 import io.thp.pyotherside 1.3
@@ -8,6 +25,13 @@ Python {
     property var providers
     property bool busy: true
     signal pythonReady()
+    signal providerCorrupted()
+    signal providerDownloadFailed()
+    signal providerRemoveFailed()
+    signal providerInstallFailed()
+    signal providerDownloadStarted()
+    signal providerDownloadProgress(int progress)
+    signal providerDownloadFinished()
 
     id: api
     onReceived: console.warn("Unhandled Python signal: " + data)
@@ -16,7 +40,8 @@ Python {
         // Transponder module path
         addImportPath(Qt.resolvedUrl(".."));
 
-        // Dependencies for Requests module
+        // Requests module
+        addImportPath(Qt.resolvedUrl("../transponder/requests"));
         addImportPath(Qt.resolvedUrl("../transponder/chardet"));
         addImportPath(Qt.resolvedUrl("../transponder/idna"));
         addImportPath(Qt.resolvedUrl("../transponder/python-certifi"));
@@ -26,6 +51,36 @@ Python {
         importModule("transponder", function() {
             pythonReady()
             api.busy = false
+        });
+
+        // Enable handlers
+        setHandler("provider-error-corrupt", function () {
+            console.error("Provider install is corrupted")
+            providerCorrupted()
+        });
+        setHandler("provider-error-download", function () {
+            console.error("Provider download failed")
+            providerDownloadFailed()
+        });
+        setHandler("provider-error-install", function () {
+            console.error("Provider installation failed")
+            providerInstallFailed()
+        });
+        setHandler("provider-error-remove", function () {
+            console.error("Provider removing failed")
+            providerRemoveFailed()
+        });
+        setHandler("provider-download-started", function () {
+            console.error("Provider download started")
+            providerDownloadStarted()
+        });
+        setHandler("provider-download-progress", function (progress) {
+            console.error("Provider download progress: " + progress)
+            providerDownloadProgress(progress)
+        });
+        setHandler("provider-download-finished", function () {
+            console.error("Provider download finished")
+            providerDownloadFinished()
         });
     }
     
